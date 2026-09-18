@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Daily Attendance + OT</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-top">
+        <h1>📋 Attendance + OT</h1>
+        <button id="themeToggle" class="icon-btn" title="Theme">🌙</button>
+      </div>
+      <p class="date" id="currentDate"></p>
+    </header>
+
+    <!-- Employee Select -->
+    <section class="card employee-card">
+      <label>Employee</label>
+      <div class="employee-row">
+        <select id="employeeSelect">
+          <option value="">-- Select Employee --</option>
+        </select>
+        <button id="addEmployeeBtn" class="btn-small">+ Add</button>
+      </div>
+    </section>
+
+    <!-- Main Action Buttons -->
+    <section class="card actions-card" id="actionsCard">
+      <div class="status-box" id="statusBox">
+        <span id="statusText">Select employee to start</span>
+      </div>
+      <div class="btn-group">
+        <button id="checkInBtn" class="btn btn-checkin" disabled>✅ Check In</button>
+        <button id="checkOutBtn" class="btn btn-checkout" disabled>🚪 Check Out</button>
+      </div>
+      <div class="time-info" id="timeInfo" style="display:none;">
+        <div><span>In:</span> <strong id="inTime">--</strong></div>
+        <div><span>Out:</span> <strong id="outTime">--</strong></div>
+        <div><span>Hours:</span> <strong id="workedHours">--</strong></div>
+        <div class="ot"><span>OT:</span> <strong id="otHours">--</strong></div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="card stats-card">
+      <h3>Today Summary</h3>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-label">Present</span>
+          <span class="stat-value" id="todayPresent">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Total OT</span>
+          <span class="stat-value ot" id="todayOT">0.0h</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- History / Records -->
+    <section class="card history-card">
+      <div class="history-header">
+        <h3>Records</h3>
+        <div class="filter-row">
+          <select id="filterEmployee">
+            <option value="all">All Employees</option>
+          </select>
+          <input type="month" id="filterMonth" />
+        </div>
+      </div>
+      <div id="recordsList" class="records-list">
+        <p class="empty">No records yet</p>
+      </div>
+    </section>
+
+    <!-- Monthly Report -->
+    <section class="card report-card">
+      <h3>Monthly Report</h3>
+      <div id="monthlyReport" class="monthly-report">
+        <p class="empty">Select employee & month</p>
+      </div>
+      <button id="exportBtn" class="btn btn-export">📥 Export CSV</button>
+    </section>
+  </div>
+
+  <!-- Add Employee Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Add Employee</h3>
+      <input type="text" id="newEmployeeName" placeholder="Employee Name" maxlength="40" />
+      <div class="modal-actions">
+        <button id="cancelAdd" class="btn-small btn-cancel">Cancel</button>
+        <button id="confirmAdd" class="btn-small btn-confirm">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
